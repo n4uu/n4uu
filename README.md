@@ -33,6 +33,15 @@ Single static-binary recon orchestrator chaining subfinder, httpx, nmap, nuclei,
 **[wireguardian](https://github.com/n4uu/wireguardian)**
 Fail-closed opsec guard for WireGuard. Verifies exit IP and checks for DNS/IPv6 leaks before you touch a target, with a kill switch built in.
 
+## Writing
+
+**[What the npm registry remembers](writeups/what-the-npm-registry-remembers.md)**
+Rebuilding the axios, easy-day-js and qix npm compromises from registry metadata alone, with the `curl` and `jq` to check every timestamp, and what calibrating graft on real dependency trees taught about how npm normally behaves.
+
+## Upstream
+
+- [apache/superset#43504](https://github.com/apache/superset/pull/43504): a theme's custom loading spinner SVG was rendered inline after regex-based sanitization. It now loads through an `<img>` data URI, where the browser never runs script. Merged September 2026.
+
 ## Focus
 
 - Reverse engineering C2 protocols and implant configuration formats
