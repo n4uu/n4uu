@@ -4,7 +4,12 @@ Malware analysis, threat intelligence, detection engineering, offensive tooling.
 
 ## Projects
 
-### Contagious Interview (DPRK fake job interviews)
+### North Korean operations against developers
+
+Three tools, one per stage: the npm release that delivers the implant, the implant itself, and the infrastructure behind it.
+
+**[graft](https://github.com/n4uu/graft)**
+Finds compromised releases in npm dependency trees: the stolen-token pattern behind the axios (March 2026) and Mastra (June 2026) compromises, where a trusted package suddenly grafts on a day-old dependency with an install script. Reads each release's registry paper trail (trusted publishing and provenance dropped, publisher changes, impersonation, bursts across unrelated projects), sweeps node_modules and the npm cache for incident response, and reports to GitHub code scanning. Calibrated on real trees of 384 and 3,146 packages with no false positive at medium or above.
 
 **[crumble](https://github.com/n4uu/crumble)**
 Config extractor, C2 traffic decoder and detection rules for OtterCookie. Undoes javascript-obfuscator's string array by running the sample's own decoder in an isolated VM, emulates the implant behind recording Node.js stubs to recover its socket.io C2, check-in and staged code, and rebuilds operator sessions from pcap (Engine.IO v3/v4, WebSocket with permessage-deflate). Ships tested YARA and Sigma rules.
@@ -31,7 +36,7 @@ Fail-closed opsec guard for WireGuard. Verifies exit IP and checks for DNS/IPv6 
 ## Focus
 
 - Reverse engineering C2 protocols and implant configuration formats
-- Threat intelligence on DPRK-nexus developer-targeting campaigns: sample triage, infrastructure pivoting, MISP/STIX output
+- Threat intelligence on DPRK-nexus developer-targeting campaigns: npm supply chain, sample triage, infrastructure pivoting, MISP/STIX output
 - Kernel-level detection engineering: eBPF, syscall tracing
 - Detection content (YARA, Sigma) shipped with positive and negative tests
 - Offensive tooling for authorized engagements
