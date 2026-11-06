@@ -14,7 +14,7 @@ Two files tagged BeaverTail turned out to be a Node.js backdoor that talks
 newline-delimited JSON over plain TCP. Delivery chain, protocol, and the three
 ways the samples broke my own tooling.
 
-**[What the npm registry remembers](writeups/what-the-npm-registry-remembers.md)**
+**[What the npm registry remembers](https://n4uu.github.io/2026/what-the-npm-registry-remembers/)** (Nov 2026)
 Rebuilding the axios, easy-day-js and qix compromises from registry metadata
 alone, with the `curl` and `jq` to check every timestamp.
 
