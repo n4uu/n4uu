@@ -35,6 +35,9 @@ Fail-closed opsec guard for WireGuard. Verifies exit IP and checks for DNS/IPv6 
 
 ## Writing
 
+**[A raw TCP backdoor behind the cleverstack git hook lure](https://n4uu.github.io/2026/raw-tcp-backdoor-cleverstack/)**
+Two files tagged BeaverTail turn out to be a Node.js backdoor that talks newline-delimited JSON over plain TCP. Delivery chain, protocol, and Suricata, Sigma and YARA rules tested against it.
+
 **[What the npm registry remembers](writeups/what-the-npm-registry-remembers.md)**
 Rebuilding the axios, easy-day-js and qix npm compromises from registry metadata alone, with the `curl` and `jq` to check every timestamp, and what calibrating graft on real dependency trees taught about how npm normally behaves.
 
