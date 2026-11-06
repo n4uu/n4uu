@@ -43,6 +43,10 @@ Rebuilding the axios, easy-day-js and qix npm compromises from registry metadata
 
 ## Upstream
 
+- [SigmaHQ/sigma#6568](https://github.com/SigmaHQ/sigma/pull/6568): two emerging-threat rules for the Contagious Interview raw TCP backdoor (single-instance lock file, detached command tasking).
+
+- [Neo23x0/signature-base#434](https://github.com/Neo23x0/signature-base/pull/434): YARA rule that matches the obfuscated backdoor as distributed, no deobfuscation needed.
+
 - [apache/superset#43504](https://github.com/apache/superset/pull/43504): a theme's custom loading spinner SVG was rendered inline after regex-based sanitization. It now loads through an `<img>` data URI, where the browser never runs script. Merged September 2026.
 
 ## Focus
