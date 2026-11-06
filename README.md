@@ -1,61 +1,42 @@
 # n4uu
 
-Malware analysis, threat intelligence, detection engineering, offensive tooling.
+I track North Korean operations against developers: the fake interviews, the
+poisoned repos and npm releases, the implants they drop and the infrastructure
+behind them. I write up what I find, ship detections for it and report the
+indicators.
 
-## Projects
-
-### North Korean operations against developers
-
-Three tools, one per stage: the npm release that delivers the implant, the implant itself, and the infrastructure behind it.
-
-**[graft](https://github.com/n4uu/graft)**
-Finds compromised releases in npm dependency trees: the stolen-token pattern behind the axios (March 2026) and Mastra (June 2026) compromises, where a trusted package suddenly grafts on a day-old dependency with an install script. Reads each release's registry paper trail (trusted publishing and provenance dropped, publisher changes, impersonation, bursts across unrelated projects), sweeps node_modules and the npm cache for incident response, and reports to GitHub code scanning. Calibrated on real trees of 384 and 3,146 packages with no false positive at medium or above.
-
-**[crumble](https://github.com/n4uu/crumble)**
-Config extractor, C2 traffic decoder and detection rules for OtterCookie. Undoes javascript-obfuscator's string array by running the sample's own decoder in an isolated VM, emulates the implant behind recording Node.js stubs to recover its socket.io C2, check-in and staged code, and rebuilds operator sessions from pcap (Engine.IO v3/v4, WebSocket with permessage-deflate). Ships tested YARA and Sigma rules.
-
-**[prowl](https://github.com/n4uu/prowl)**
-Infrastructure hunting from public telemetry. Seeds from ThreatFox, pivots through URLhaus, certificate transparency, DNS and ASN data, scores every indicator with an explainable log-odds model (correlated evidence damped, sightings decayed, CDNs and shared hosting kept out), and exports MISP and STIX 2.1.
-
-### Malware and detection
-
-**[wraith](https://github.com/n4uu/wraith)**
-eBPF sensor for fileless execution and process injection on Linux. Six tracepoint-level rules mapped to MITRE ATT&CK, running entirely in-kernel with no file-hash heuristics and no cloud lookups.
-
-**[husk](https://github.com/n4uu/husk)**
-Clean-room Cobalt Strike Beacon configuration extractor. Recovers the XOR key and offset by brute force rather than hardcoded signatures, then decodes the full TLV config, including the Malleable C2 instruction opcodes.
-
-### Offensive
-
-**[snitch](https://github.com/n4uu/snitch)**
-Single static-binary recon orchestrator chaining subfinder, httpx, nmap, nuclei, ffuf, and katana with injection testing (dalfox, crlfuzz, sqlmap). Dedupes findings and exports JSON, CSV, and SARIF.
-
-**[wireguardian](https://github.com/n4uu/wireguardian)**
-Fail-closed opsec guard for WireGuard. Verifies exit IP and checks for DNS/IPv6 leaks before you touch a target, with a kill switch built in.
+Blog: https://n4uu.github.io
 
 ## Writing
 
-**[A raw TCP backdoor behind the cleverstack git hook lure](https://n4uu.github.io/2026/raw-tcp-backdoor-cleverstack/)**
-Two files tagged BeaverTail turn out to be a Node.js backdoor that talks newline-delimited JSON over plain TCP. Delivery chain, protocol, and Suricata, Sigma and YARA rules tested against it.
+**[A raw TCP backdoor behind the cleverstack git hook lure](https://n4uu.github.io/2026/raw-tcp-backdoor-cleverstack/)** (Nov 2026)
+Two files tagged BeaverTail turned out to be a Node.js backdoor that talks
+newline-delimited JSON over plain TCP. Delivery chain, protocol, and the three
+ways the samples broke my own tooling.
 
 **[What the npm registry remembers](writeups/what-the-npm-registry-remembers.md)**
-Rebuilding the axios, easy-day-js and qix npm compromises from registry metadata alone, with the `curl` and `jq` to check every timestamp, and what calibrating graft on real dependency trees taught about how npm normally behaves.
+Rebuilding the axios, easy-day-js and qix compromises from registry metadata
+alone, with the `curl` and `jq` to check every timestamp.
 
-## Upstream
+## Detections and indicators upstream
 
-- [SigmaHQ/sigma#6568](https://github.com/SigmaHQ/sigma/pull/6568): two emerging-threat rules for the Contagious Interview raw TCP backdoor (single-instance lock file, detached command tasking).
+- [SigmaHQ/sigma#6568](https://github.com/SigmaHQ/sigma/pull/6568): Sigma rules for the raw TCP backdoor (lock file, detached `ss_exec` tasking).
+- [Neo23x0/signature-base#434](https://github.com/Neo23x0/signature-base/pull/434): YARA that matches the obfuscated backdoor as distributed.
+- Indicators reported to ThreatFox and URLhaus as n4uu.
+- [apache/superset#43504](https://github.com/apache/superset/pull/43504): a theme's loading spinner SVG was rendered inline after regex sanitization; it now loads through an `<img>` data URI. Merged September 2026.
 
-- [Neo23x0/signature-base#434](https://github.com/Neo23x0/signature-base/pull/434): YARA rule that matches the obfuscated backdoor as distributed, no deobfuscation needed.
+## Tools
 
-- [apache/superset#43504](https://github.com/apache/superset/pull/43504): a theme's custom loading spinner SVG was rendered inline after regex-based sanitization. It now loads through an `<img>` data URI, where the browser never runs script. Merged September 2026.
+For the DPRK work, one per stage:
 
-## Focus
+- **[graft](https://github.com/n4uu/graft)** finds compromised releases in npm dependency trees from the registry paper trail (provenance dropped, new publisher, a day-old dependency with an install script). No false positive at medium or above on real trees of 384 and 3,146 packages.
+- **[crumble](https://github.com/n4uu/crumble)** pulls config and C2 out of OtterCookie and related implants, decodes their socket.io traffic from pcap and ships the YARA, Sigma and Suricata rules I use.
+- **[prowl](https://github.com/n4uu/prowl)** pivots from ThreatFox seeds through URLhaus, certificate transparency, DNS and ASN data, scores what it finds and exports MISP and STIX.
 
-- Reverse engineering C2 protocols and implant configuration formats
-- Threat intelligence on DPRK-nexus developer-targeting campaigns: npm supply chain, sample triage, infrastructure pivoting, MISP/STIX output
-- Kernel-level detection engineering: eBPF, syscall tracing
-- Detection content (YARA, Sigma) shipped with positive and negative tests
-- Offensive tooling for authorized engagements
+Other things I built:
+[wraith](https://github.com/n4uu/wraith) (eBPF sensor for fileless execution and injection on Linux),
+[husk](https://github.com/n4uu/husk) (Cobalt Strike Beacon config extractor),
+[snitch](https://github.com/n4uu/snitch) and [wireguardian](https://github.com/n4uu/wireguardian) (recon and opsec helpers for authorized work).
 
 ## Contact
 
