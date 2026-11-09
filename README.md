@@ -1,8 +1,6 @@
 # n4uu
 
-I track North Korean operations against developers: the fake interviews, the
-poisoned repos and npm releases, the implants they drop and the infrastructure
-behind them. I write up what I find, ship detections for it and report the
+I write up what I find, ship detections for it and report the
 indicators.
 
 Blog: https://n4uu.github.io
