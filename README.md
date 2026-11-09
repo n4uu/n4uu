@@ -21,6 +21,10 @@ alone, with the `curl` and `jq` to check every timestamp.
 - [SigmaHQ/sigma#6568](https://github.com/SigmaHQ/sigma/pull/6568): Sigma rules for the raw TCP backdoor (lock file, detached `ss_exec` tasking).
 - [Neo23x0/signature-base#434](https://github.com/Neo23x0/signature-base/pull/434): YARA that matches the obfuscated backdoor as distributed.
 - Indicators reported to ThreatFox and URLhaus as n4uu.
+
+## Vulnerability reports
+
+- [espnet GHSA-jcfw-5whq-98j4](https://github.com/espnet/espnet/security/advisories/GHSA-jcfw-5whq-98j4): `pack_funcs.unpack` extracted model archives with a bare `tarfile.extract`, so a crafted archive could write files outside the target directory. 8.8 High, fixed in 202609.post1.
 - [apache/superset#43504](https://github.com/apache/superset/pull/43504): a theme's loading spinner SVG was rendered inline after regex sanitization; it now loads through an `<img>` data URI. Merged September 2026.
 
 ## Tools
