@@ -7,6 +7,11 @@ Blog: https://n4uu.github.io
 
 ## Writing
 
+**[Settle a payment: thirteen fake coding tests and one git hook](https://n4uu.github.io/2026/settle-a-payment-git-hook/)** (Nov 2026)
+Fake take-home tests, one per language, with a post-checkout hook that fires on
+the git command the README asks for, and the OtterCookie loader behind it,
+resolved without running any of its code.
+
 **[A raw TCP backdoor behind the cleverstack git hook lure](https://n4uu.github.io/2026/raw-tcp-backdoor-cleverstack/)** (Nov 2026)
 Two files tagged BeaverTail turned out to be a Node.js backdoor that talks
 newline-delimited JSON over plain TCP. Delivery chain, protocol, and the three
@@ -20,6 +25,7 @@ alone, with the `curl` and `jq` to check every timestamp.
 
 - [SigmaHQ/sigma#6568](https://github.com/SigmaHQ/sigma/pull/6568): Sigma rules for the raw TCP backdoor (lock file, detached `ss_exec` tasking).
 - [Neo23x0/signature-base#434](https://github.com/Neo23x0/signature-base/pull/434): YARA that matches the obfuscated backdoor as distributed.
+- [Neo23x0/signature-base#437](https://github.com/Neo23x0/signature-base/pull/437): YARA for the "Settle a payment" git hook lure and its OtterCookie loader.
 - Indicators reported to ThreatFox and URLhaus as n4uu.
 
 ## Vulnerability reports
